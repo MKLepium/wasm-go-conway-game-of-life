@@ -24,9 +24,7 @@
 *.pb.go
 *.pb.gw.go
 
-# Go module files
-/go.mod
-/go.sum
+
 
 # Build output directory
 /build
