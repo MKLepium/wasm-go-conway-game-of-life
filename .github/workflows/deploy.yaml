@@ -20,19 +20,3 @@ jobs:
         go-version: 1.22.4
     - name: make go build
       run: make build
-    
-    - name: Setup files for GitHub Pages
-      run: |
-        mkdir -p public
-        mv wasm/main.wasm public/
-        mv frontend/wasm_exec.js public/
-        mv frontend/index.html public/
-        ls public
-
-    # Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-
