@@ -43,15 +43,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Create temp directory
+
+    - name: create temp directory
       run: mkdir temp
       
 
-
-    - name: Download artifacts
+    - name: Download artifact main.wasm
       uses: actions/download-artifact@v3
       with:
         path: temp/
+        name: main.wasm
+    - name: Download artifact wasm_exec.js
+      uses: actions/download-artifact@v3
+      with:
+        path: temp/
+        name: wasm_exec.js
+    - name: Download artifact index.html
+      uses: actions/download-artifact@v3
+      with:
+        path: temp/
+        name: index.html
+
+
+
     - name: check files
       run: ls temp/
 
