@@ -38,7 +38,7 @@ jobs:
         name: index
         path: ./frontend/index.html
     - name: List available artifacts
-      run: gh run list-artifacts --repo ${{ github.repository }} --run-id ${{ github.run_id }}
+      run: gh run --help
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
