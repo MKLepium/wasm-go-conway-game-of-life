@@ -49,6 +49,8 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         path: temp/
+    - name: check files
+      run: ls temp/
 
     # Setup files for GitHub Pages
     - name: Setup files for GitHub Pages
