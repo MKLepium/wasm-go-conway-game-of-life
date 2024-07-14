@@ -23,19 +23,19 @@ jobs:
     - name: Upload ./wasm/main.wasm file as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: main.wasm
+        name: main
         path: ./wasm/main.wasm
         if-no-files-found: error
     - name: Upload ./frontend/wasm_exec.js file as artifact # I should probably make this dynamic (Not sure if the github runner has this file)
       uses: actions/upload-artifact@v4
       with:
-        name: wasm_exec.js
+        name: wasm_exec
         path: ./frontend/wasm_exec.js
         if-no-files-found: error
     - name: Upload ./frontend/index.html file as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: index.html
+        name: index
         path: ./frontend/index.html
 
   deploy:
@@ -52,20 +52,17 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         path: temp/
-        name: main.wasm
+        name: main
     - name: Download artifact wasm_exec.js
       uses: actions/download-artifact@v3
       with:
         path: temp/
-        name: wasm_exec.js
+        name: wasm_exec
     - name: Download artifact index.html
       uses: actions/download-artifact@v3
       with:
         path: temp/
-        name: index.html
-
-
-
+        name: index
     - name: check files
       run: ls temp/
 
