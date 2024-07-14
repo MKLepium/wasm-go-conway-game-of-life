@@ -37,6 +37,10 @@ jobs:
       with:
         name: index
         path: ./frontend/index.html
+    - name: List available artifacts
+      run: gh run list-artifacts --repo ${{ github.repository }} --run-id ${{ github.run_id }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: build
@@ -49,17 +53,17 @@ jobs:
       
 
     - name: Download artifact main.wasm
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         path: temp/
         name: main
     - name: Download artifact wasm_exec.js
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         path: temp/
         name: wasm_exec
     - name: Download artifact index.html
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         path: temp/
         name: index
