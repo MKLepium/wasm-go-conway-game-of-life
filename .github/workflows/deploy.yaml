@@ -20,63 +20,14 @@ jobs:
         go-version: 1.22.4
     - name: make go build
       run: make build
-    - name: Upload ./wasm/main.wasm file as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: main
-        path: ./wasm/main.wasm
-        if-no-files-found: error
-    - name: Upload ./frontend/wasm_exec.js file as artifact # I should probably make this dynamic (Not sure if the github runner has this file)
-      uses: actions/upload-artifact@v4
-      with:
-        name: wasm_exec
-        path: ./frontend/wasm_exec.js
-        if-no-files-found: error
-    - name: Upload ./frontend/index.html file as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: index
-        path: ./frontend/index.html
-    - name: List available artifacts
-      run: gh run --help
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: create temp directory
-      run: mkdir temp
-      
-
-    - name: Download artifact main.wasm
-      uses: actions/download-artifact@v4
-      with:
-        path: temp/
-        name: main
-    - name: Download artifact wasm_exec.js
-      uses: actions/download-artifact@v4
-      with:
-        path: temp/
-        name: wasm_exec
-    - name: Download artifact index.html
-      uses: actions/download-artifact@v4
-      with:
-        path: temp/
-        name: index
-    - name: check files
-      run: ls temp/
-
-    # Setup files for GitHub Pages
+    
     - name: Setup files for GitHub Pages
       run: |
         mkdir -p public
-        mv temp/main.wasm public/
-        mv temp/wasm_exec.js public/
-        mv temp/index.html public/
+        mv wasm/main.wasm public/
+        mv frontend/wasm_exec.js public/
+        mv frontend/index.html public/
+        ls public
 
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
