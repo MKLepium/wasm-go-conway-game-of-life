@@ -38,30 +38,30 @@ jobs:
         name: index.html
         path: ./frontend/index.html
 
-deploy:
-  needs: build
-  runs-on: ubuntu-latest
-  steps:
-  - uses: actions/checkout@v4
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
 
 
-  - name: Download artifacts
-    uses: actions/download-artifact@v3
-    with:
-      path: temp/
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: temp/
 
-  # Setup files for GitHub Pages
-  - name: Setup files for GitHub Pages
-    run: |
-      mkdir -p public
-      mv temp/main.wasm public/
-      mv temp/wasm_exec.js public/
-      mv temp/index.html public/
+    # Setup files for GitHub Pages
+    - name: Setup files for GitHub Pages
+      run: |
+        mkdir -p public
+        mv temp/main.wasm public/
+        mv temp/wasm_exec.js public/
+        mv temp/index.html public/
 
-  # Deploy to GitHub Pages
-  - name: Deploy to GitHub Pages
-    uses: peaceiris/actions-gh-pages@v3
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      publish_dir: ./public
+    # Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
 
