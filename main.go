@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Starting Server...")
+	fmt.Println("Starting WebServer...")
 	backend.StartWebPage()
 }
