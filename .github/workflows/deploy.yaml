@@ -26,5 +26,42 @@ jobs:
         name: main.wasm
         path: ./wasm/main.wasm
         if-no-files-found: error
+    - name: Upload ./frontend/wasm_exec.js file as artifact # I should probably make this dynamic (Not sure if the github runner has this file)
+      uses: actions/upload-artifact@v4
+      with:
+        name: wasm_exec.js
+        path: ./frontend/wasm_exec.js
+        if-no-files-found: error
+    - name: Upload ./frontend/index.html file as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: index.html
+        path: ./frontend/index.html
 
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v4
+
+
+  - name: Download artifacts
+    uses: actions/download-artifact@v3
+    with:
+      path: temp/
+
+  # Setup files for GitHub Pages
+  - name: Setup files for GitHub Pages
+    run: |
+      mkdir -p public
+      mv temp/main.wasm public/
+      mv temp/wasm_exec.js public/
+      mv temp/index.html public/
+
+  # Deploy to GitHub Pages
+  - name: Deploy to GitHub Pages
+    uses: peaceiris/actions-gh-pages@v3
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      publish_dir: ./public
 
